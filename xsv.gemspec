@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = "~> 2.5"
 
   spec.add_dependency "rubyzip", ">= 1.3", "< 3"
-  spec.add_dependency "ox", ">= 2.9"
+  spec.add_dependency "nokogiri", ">= 1.10"
 
   spec.add_development_dependency "bundler", "< 3"
   spec.add_development_dependency "rake", "~> 13.0"

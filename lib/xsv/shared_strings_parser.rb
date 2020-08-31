@@ -2,11 +2,11 @@
 module Xsv
   # Interpret the sharedStrings.xml file from the workbook
   # This is used internally when opening a sheet.
-  class SharedStringsParser < Ox::Sax
+  class SharedStringsParser < Nokogiri::XML::SAX::Document
     def self.parse(io)
       strings = []
       handler = new { |s| strings << s }
-      Ox.sax_parse(handler, io.read, skip: :skip_none)
+      Nokogiri::XML::SAX::Parser.new(handler).parse(io)
       return strings
     end
 
@@ -15,24 +15,24 @@ module Xsv
       @state = nil
     end
 
-    def start_element(name)
+    def start_element(name, attrs)
       case name
-      when :si
+      when "si"
         @current_string = ""
-      when :t
+      when "t"
         @state = name
       end
     end
 
-    def text(value)
-      @current_string += value if @state == :t
+    def characters(value)
+      @current_string += value if @state == "t"
     end
 
     def end_element(name)
       case name
-      when :si
+      when "si"
         @block.call(@current_string)
-      when :t
+      when "t"
         @state = nil
       end
     end

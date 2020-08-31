@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "date"
-require "ox"
+require "nokogiri"
 
 require "xsv/helpers"
 require "xsv/relationships_handler"
