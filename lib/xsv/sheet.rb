@@ -105,7 +105,7 @@ module Xsv
         first
       when :hash
         @mode = :array
-        headers.tap { @mode = :hash }
+        headers.tap { @mode = :hash }.map!(&:to_sym)
       end || []
     end
 
